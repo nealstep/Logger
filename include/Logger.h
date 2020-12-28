@@ -9,7 +9,7 @@ void send(const char* msg);
 enum logger_levels {
     logger_none,
     logger_error,
-    logger_warning,
+    logger_warn,
     logger_info,
     logger_debug
 };
