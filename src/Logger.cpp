@@ -2,7 +2,7 @@
 
 #include <Logger.h>
 
-Logger& l = Logger::get_instance();
+Logger& lg = Logger::get_instance();
 
 char Logger::message[LOGGER_MSG_LEN];
 char Logger::num_buf[LOGGER_NUM_LEN];

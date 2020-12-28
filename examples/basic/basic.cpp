@@ -14,38 +14,41 @@ uint8_t ll_ind;
 void setup(void) {
     Serial.begin(BAUD);
     while (!Serial) delay(SERIAL_WAIT);
+    lg.info("Starting");
     ll_ind = 0;
     delay(WARMUP_WAIT);
+    lg.info("Started");
 }
 
 void loop(void) {
     logger_levels ll;
 
     ll = ll_ar[ll_ind++];
-    l.set_level(ll);
+    lg.set_level(ll);
     Serial.print("Log Level:");
     Serial.println(ll);
     Serial.println("Error");
-    l.error("Test Error");
+    lg.error("Test Error");
     Serial.println("Warn");
-    l.warn("Test Warn");
+    lg.warn("Test Warn");
     Serial.println("Info");
-    l.info("Test Info");
+    lg.info("Test Info");
     Serial.println("Debug");
-    l.debug("Test Debug");
+    lg.debug("Test Debug");
     Serial.println("Value (warn)");
-    l.value("zero", 0, logger_warn);
-    l.value("str0", "only", logger_warn);
+    lg.value("zero", 0, logger_warn);
+    lg.value("str0", "only", logger_warn);
     Serial.println("Value (info)");
-    l.value("one", 1);
-    l.value("str1", "this");
+    lg.value("one", 1);
+    lg.value("str1", "this");
     Serial.println("Report");
-    l.report("two", 2);
-    l.report("str2", "that");
+    lg.report("two", 2);
+    lg.report("str2", "that");
     if (ll_ind  == LL_LEN) {
         ll_ind = 0;
     }
 
+    lg.info("Looping");
     delay(LOOP_WAIT);
 }
 

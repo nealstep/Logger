@@ -47,6 +47,6 @@ class Logger {
         void msg_fin(const char* mesg);
 };
 
-extern Logger& l;
+extern Logger& lg;
 
 #endif // LOGGER_H
