@@ -25,7 +25,7 @@ void Logger::error(const char* msg) {
         return;
     }
     strcpy(message, err_str);
-    finish(msg);
+    msg_fin(msg);
 }
 
 void Logger::warn(const char* msg) {
@@ -33,7 +33,7 @@ void Logger::warn(const char* msg) {
         return;
     }
     strcpy(message, wrn_str);
-    finish(msg);
+    msg_fin(msg);
 }
 
 void Logger::info(const char* msg) {
@@ -41,7 +41,7 @@ void Logger::info(const char* msg) {
         return;
     }
     strcpy(message, inf_str);
-    finish(msg);
+    msg_fin(msg);
 }
 
 void Logger::debug(const char* msg) {
@@ -49,7 +49,7 @@ void Logger::debug(const char* msg) {
         return;
     }
     strcpy(message, dbg_str);
-    finish(msg);
+    msg_fin(msg);
 }
 
 void Logger::value(const char* tag, uint32_t val, bool hex, logger_levels log_level) {
@@ -57,15 +57,15 @@ void Logger::value(const char* tag, uint32_t val, bool hex, logger_levels log_le
     return;
   }
   strcpy(message, val_str);
-  val(tag, val, hex);
+  val_ftm(tag, val, hex);
 }
 
 void Logger::report(const char* tag, uint32_t val, bool hex) {
   strcpy(message, rep_str);
-  val(tag, val, hex);
+  val_ftm(tag, val, hex);
 }
 
-void Logger::val(const char* tag, uint32_t val, bool hex) {
+void Logger::val_fmt(const char* tag, uint32_t val, bool hex) {
     size_t slen;
     
     if (hex) {
@@ -86,7 +86,7 @@ void Logger::val(const char* tag, uint32_t val, bool hex) {
     send(message);  
 }     
 
-void Logger::finish(const char* msg) {
+void Logger::msg_fin(const char* msg) {
     strncat(message, msg, LOGGER_MSG_LEN-3);
     send(message);  
 }

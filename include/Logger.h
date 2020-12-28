@@ -38,8 +38,8 @@ class Logger {
         static char message[LOGGER_MSG_LEN];
         static char num_buf[LOGGER_NUM_LEN];
 
-	void val(const char* tag, uint32_t val, bool hex);
-        void finish(const char* mesg);
+	void val_fmt(const char* tag, uint32_t val, bool hex);
+        void msg_fin(const char* mesg);
 };
 
 extern Logger& l;
