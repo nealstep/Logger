@@ -21,7 +21,7 @@ void Logger::set_level(logger_levels new_level) {
 }
 
 void Logger::error(const char* msg) {
-    if (level > logger_error) {
+    if (level < logger_error) {
         return;
     }
     strcpy(message, err_str);
@@ -29,7 +29,7 @@ void Logger::error(const char* msg) {
 }
 
 void Logger::warn(const char* msg) {
-    if (level > logger_warn) {
+    if (level < logger_warn) {
         return;
     }
     strcpy(message, wrn_str);
@@ -37,7 +37,7 @@ void Logger::warn(const char* msg) {
 }
 
 void Logger::info(const char* msg) {
-    if (level > logger_info) {
+    if (level < logger_info) {
         return;
     }
     strcpy(message, inf_str);
@@ -45,7 +45,7 @@ void Logger::info(const char* msg) {
 }
 
 void Logger::debug(const char* msg) {
-    if (level > logger_debug) {
+    if (level < logger_debug) {
         return;
     }
     strcpy(message, dbg_str);
@@ -53,16 +53,29 @@ void Logger::debug(const char* msg) {
 }
 
 void Logger::value(const char* tag, uint32_t val, bool hex, logger_levels log_level) {
-  if (level > log_level) {
-    return;
-  }
-  strcpy(message, val_str);
-  val_fmt(tag, val, hex);
+    if (level < log_level) {
+        return;
+    }
+    strcpy(message, val_str);
+    val_fmt(tag, val, hex);
+}
+
+void Logger::value(const char* tag, const char* msg, logger_levels log_level) {
+    if (level < log_level) {
+        return;
+    }
+    strcpy(message, val_str);
+    str_fmt(tag, msg);
 }
 
 void Logger::report(const char* tag, uint32_t val, bool hex) {
-  strcpy(message, rep_str);
-  val_fmt(tag, val, hex);
+    strcpy(message, rep_str);
+    val_fmt(tag, val, hex);
+}
+
+void Logger::report(const char* tag, const char* msg) {
+    strcpy(message, rep_str);
+    str_fmt(tag, msg);
 }
 
 void Logger::val_fmt(const char* tag, uint32_t val, bool hex) {
@@ -83,6 +96,18 @@ void Logger::val_fmt(const char* tag, uint32_t val, bool hex) {
       slen -= 2;
     }
     strncat(message, num_buf, slen);
+    send(message);  
+}     
+
+void Logger::str_fmt(const char* tag, const char* msg) {
+    size_t slen;
+    
+    slen = LOGGER_MSG_LEN-3;
+    strncat(message, tag, slen);
+    slen -= strlen(tag);
+    strncat(message, sep_str, slen);
+    slen -= 1;
+    strncat(message, msg, slen);
     send(message);  
 }     
 
