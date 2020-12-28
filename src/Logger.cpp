@@ -57,12 +57,12 @@ void Logger::value(const char* tag, uint32_t val, bool hex, logger_levels log_le
     return;
   }
   strcpy(message, val_str);
-  val(tag, val, hex, log_level);
+  val(tag, val, hex);
 }
 
 void Logger::report(const char* tag, uint32_t val, bool hex) {
   strcpy(message, rep_str);
-  val(tag, val, hex, log_level);
+  val(tag, val, hex);
 }
 
 void Logger::val(const char* tag, uint32_t val, bool hex) {
