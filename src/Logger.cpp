@@ -8,19 +8,31 @@ char Logger::message[LOGGER_MSG_LEN];
 char Logger::num_buf[LOGGER_NUM_LEN];
 
 static const char err_str[] = "! ";
+static const char wrn_str[] = "# ";
 static const char inf_str[] = "* ";
+static const char dbg_str[] = "% ";
 static const char val_str[] = "^ ";
+static const char rep_str[] = "$ ";
 static const char sep_str[] = ":";
 static const char hex_str[] = "0x";
 
 void Logger::set_level(logger_levels new_level) {
     level = new_level;
 }
+
 void Logger::error(const char* msg) {
     if (level > logger_error) {
         return;
     }
     strcpy(message, err_str);
+    finish(msg);
+}
+
+void Logger::warn(const char* msg) {
+    if (level > logger_warn) {
+        return;
+    }
+    strcpy(message, wrn_str);
     finish(msg);
 }
 
@@ -32,13 +44,30 @@ void Logger::info(const char* msg) {
     finish(msg);
 }
 
-void Logger::val(const char* tag, uint32_t val, bool hex, logger_levels log_level) {
-    size_t slen;
-    
-    if (level > log_level) {
+void Logger::debug(const char* msg) {
+    if (level > logger_debug) {
         return;
     }
-    strcpy(message, val_str);
+    strcpy(message, dbg_str);
+    finish(msg);
+}
+
+void Logger::value(const char* tag, uint32_t val, bool hex, logger_levels log_level) {
+  if (level > log_level) {
+    return;
+  }
+  strcpy(message, val_str);
+  val(tag, val, hex, log_level);
+}
+
+void Logger::report(const char* tag, uint32_t val, bool hex) {
+  strcpy(message, rep_str);
+  val(tag, val, hex, log_level);
+}
+
+void Logger::val(const char* tag, uint32_t val, bool hex) {
+    size_t slen;
+    
     if (hex) {
         ltoa(val, num_buf, 16);
     } else {

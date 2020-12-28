@@ -25,9 +25,11 @@ class Logger {
 
         void set_level(logger_levels new_level);
         void error(const char* msg);
+        void warn(const char* msg);
         void info(const char* msg);
         void debug(const char* msg);
-        void val(const char* tag, uint32_t val, bool hex=true, logger_levels log_level=logger_info);
+        void value(const char* tag, uint32_t val, bool hex=true, logger_levels log_level=logger_info);
+        void report(const char* tag, uint32_t val, bool hex=true);
     protected:
         Logger(void) {}
         ~Logger(void) {}
@@ -36,6 +38,7 @@ class Logger {
         static char message[LOGGER_MSG_LEN];
         static char num_buf[LOGGER_NUM_LEN];
 
+	void val(const char* tag, uint32_t val, bool hex);
         void finish(const char* mesg);
 };
 
