@@ -1,0 +1,19 @@
+{
+    "name": "Logger",
+    "version": "1.0.0",
+    "description": "A Simple Logging library. Expects caller to provide a function void send(const char* msg) that actually does something with the message",
+    "repository": {
+	"type": "git",
+	"url": "https://github.com/nealstep/Logger"
+    },
+    "authors":
+    [
+	{
+	    "name": "Neal Stephenson",
+	    "email": "neal@bakerst.org"
+	}
+    ],
+    "license": "MIT",
+    "frameworks": "*",
+    "platforms": "*"
+}
