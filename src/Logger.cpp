@@ -15,6 +15,9 @@ static const char val_str[] = "^ ";
 static const char rep_str[] = "$ ";
 static const char sep_str[] = ":";
 static const char hex_str[] = "0x";
+static const char vlb_str[] = "( ";
+static const char vlc_str[] = "- ";
+static const char vle_str[] = ") ";
 
 void Logger::set_level(logger_levels new_level) {
     level = new_level;
@@ -68,6 +71,39 @@ void Logger::value(const char* tag, const char* msg, logger_levels log_level) {
     str_fmt(tag, msg);
 }
 
+void Logger::value_long(const char* tag, const char* msg, logger_levels log_level) {
+    size_t slen;
+    uint16_t i;
+    uint8_t j;
+
+    if (level < log_level) {
+        return;
+    }
+      
+    strcpy(message, vlb_str);
+    slen = LOGGER_MSG_LEN-3;
+    strncat(message, tag, slen);
+    send(message);
+
+    strcpy(message, vlc_str);
+    j = 2;
+    for (i=0;i<strlen(msg);i++) {
+        message[j++] = msg[i];
+        if ((msg[i] == '\n') || (j > (LOGGER_MSG_LEN-5))) {
+            message[--j] = '\0';
+            send(message);
+            strcpy(message, vlc_str);
+            j = 2;
+        }
+    }
+    message[j] = msg[i];
+    send(message);
+    strcpy(message, vle_str);
+    slen = LOGGER_MSG_LEN-3;
+    strncat(message, tag, slen);
+    send(message);
+}
+
 void Logger::report(const char* tag, uint32_t val, bool hex) {
     strcpy(message, rep_str);
     val_fmt(tag, val, hex);
@@ -84,11 +120,11 @@ void Logger::val_fmt(const char* tag, uint32_t val, bool hex) {
     if (hex) {
         ltoa(val, num_buf, 16);
         if (val < 256) {
-            sprintf(num_buf, "%02x", val);
+            sprintf(num_buf, "%02lx", val);
         } else if (val < 65536) {
-            sprintf(num_buf, "%04x", val);
+            sprintf(num_buf, "%04lx", val);
         } else {
-            sprintf(num_buf, "%08x", val);
+            sprintf(num_buf, "%08lx", val);
         }
     } else {
         ltoa(val, num_buf, 10);

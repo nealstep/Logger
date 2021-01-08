@@ -20,6 +20,12 @@ void setup(void) {
     lg.info("Started");
 }
 
+const char long_text[] =
+"It was the best of times, it was the worst of times,\n"
+"it was the age of wisdom, it was the age of foolishness,\n"
+"it was the epoch of belief, it was the epoch of incredulity,\n"
+"it was the season of Light, it was the season of Darkness";
+
 void loop(void) {
     logger_levels ll;
 
@@ -47,7 +53,8 @@ void loop(void) {
     if (ll_ind  == LL_LEN) {
         ll_ind = 0;
     }
-
+    lg.value_long("Dickens", long_text);
+    
     lg.info("Looping");
     delay(LOOP_WAIT);
 }
