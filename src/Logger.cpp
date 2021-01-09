@@ -118,13 +118,12 @@ void Logger::val_fmt(const char* tag, uint32_t val, bool hex) {
     size_t slen;
     
     if (hex) {
-        ltoa(val, num_buf, 16);
         if (val < 256) {
-            sprintf(num_buf, "%02lx", val);
+            sprintf(num_buf, "%02x", val);
         } else if (val < 65536) {
-            sprintf(num_buf, "%04lx", val);
+            sprintf(num_buf, "%04x", val);
         } else {
-            sprintf(num_buf, "%08lx", val);
+            sprintf(num_buf, "%08x", val);
         }
     } else {
         ltoa(val, num_buf, 10);
