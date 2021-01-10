@@ -35,6 +35,9 @@ class Logger {
         void value_long(const char* tag, const char* msg, logger_levels log_level=log_level_default);
         void report(const char* tag, uint32_t val, bool hex=true);
         void report(const char* tag, const char* msg);
+        inline logger_levels get_level(void) {
+            return level;
+        }
     protected:
         Logger(void) {}
         ~Logger(void) {}
