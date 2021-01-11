@@ -1,5 +1,3 @@
-#include <Arduino.h>
-
 #include <Logger.h>
 
 Logger& lg = Logger::get_instance();

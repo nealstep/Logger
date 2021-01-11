@@ -3,7 +3,9 @@
 
 #define LOGGER_MSG_LEN 128
 #define LOGGER_NUM_LEN 16
-    
+
+#include <Arduino.h>
+ 
 void send(const char* msg);
 
 enum logger_levels {
