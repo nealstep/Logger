@@ -33,8 +33,7 @@ class Logger {
         void info(const char* msg);
         void debug(const char* msg);
         void print(const char* msg);
-        void value(const char* tag, uint32_t val, bool hex=true, logger_levels log_level=log_level_default);
-        void value(const char* tag, uint32_t val, logger_levels log_level=log_level_default);
+        void value(const char* tag, uint32_t val, logger_levels log_level=log_level_default, bool hex=true);
         void value(const char* tag, const char* msg, logger_levels log_level=log_level_default);
         void value_long(const char* tag, const char* msg, logger_levels log_level=log_level_default);
         void report(const char* tag, uint32_t val, bool hex=true);
