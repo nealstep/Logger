@@ -18,6 +18,7 @@ static const char hex_str[] = "0x";
 static const char vlb_str[] = "( ";
 static const char vlc_str[] = "- ";
 static const char vle_str[] = ") ";
+static const char prt_str[] = "& ";
 
 void Logger::set_level(logger_levels new_level) {
     level = new_level;
@@ -52,6 +53,11 @@ void Logger::debug(const char* msg) {
         return;
     }
     strcpy(message, dbg_str);
+    msg_fin(msg);
+}
+
+void Logger::print(const char* msg) {
+    strcpy(message, prt_str);
     msg_fin(msg);
 }
 

@@ -7,11 +7,11 @@
 void send(const char* msg);
 
 enum logger_levels {
-    logger_none,
+    logger_print,
     logger_error,
     logger_warn,
     logger_info,
-    logger_debug
+    logger_debug,
 };
 
 static const logger_levels log_level_default=logger_info;
@@ -35,6 +35,7 @@ class Logger {
         void value_long(const char* tag, const char* msg, logger_levels log_level=log_level_default);
         void report(const char* tag, uint32_t val, bool hex=true);
         void report(const char* tag, const char* msg);
+        void print(const char* msg);
         inline logger_levels get_level(void) {
             return level;
         }
