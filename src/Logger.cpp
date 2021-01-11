@@ -67,6 +67,14 @@ void Logger::value(const char* tag, uint32_t val, bool hex, logger_levels log_le
     val_fmt(tag, val, hex);
 }
 
+void Logger::value(const char* tag, uint32_t val, logger_levels log_level) {
+    if (level < log_level) {
+        return;
+    }
+    strcpy(message, val_str);
+    val_fmt(tag, val, true);
+}
+
 void Logger::value(const char* tag, const char* msg, logger_levels log_level) {
     if (level < log_level) {
         return;
