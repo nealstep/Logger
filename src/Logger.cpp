@@ -142,6 +142,7 @@ void Logger::val_fmt(const char* tag, uint32_t val, bool hex) {
       slen -= 2;
     }
     strncat(message, num_buf, slen);
+    message[LOGGER_MSG_LEN-1] = '\0';
     send(message);  
 }     
 
@@ -154,10 +155,12 @@ void Logger::str_fmt(const char* tag, const char* msg) {
     strncat(message, sep_str, slen);
     slen -= 1;
     strncat(message, msg, slen);
+    message[LOGGER_MSG_LEN-1] = '\0';
     send(message);  
 }     
 
 void Logger::msg_fin(const char* msg) {
     strncat(message, msg, LOGGER_MSG_LEN-3);
+    message[LOGGER_MSG_LEN-1] = '\0';
     send(message);  
 }
