@@ -36,7 +36,7 @@ class Logger {
         void value(const char* tag, uint32_t val, logger_levels log_level=log_level_default, bool hex=true);
         void value(const char* tag, const char* msg, logger_levels log_level=log_level_default);
         void value_long(const char* tag, const char* msg, logger_levels log_level=log_level_default);
-        void report(const char* tag, uint32_t val, bool hex=true);
+        void report(const char* tag, uint32_t val, bool hex=false);
         void report(const char* tag, const char* msg);
         inline logger_levels get_level(void) {
             return level;
