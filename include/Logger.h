@@ -5,7 +5,7 @@
 #define LOGGER_NUM_LEN 16
 
 #include <Arduino.h>
- 
+
 void send(const char* msg);
 
 enum logger_levels {
@@ -38,6 +38,8 @@ class Logger {
         void value_long(const char* tag, const char* msg, logger_levels log_level=log_level_default);
         void report(const char* tag, uint32_t val, bool hex=false);
         void report(const char* tag, const char* msg);
+        void report_long(const char* tag, const uint32_t msg[], uint16_t x, uint16_t y=0);
+
         inline logger_levels get_level(void) {
             return level;
         }

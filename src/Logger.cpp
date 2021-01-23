@@ -17,6 +17,9 @@ static const char vlb_str[] = "( ";
 static const char vlc_str[] = "- ";
 static const char vle_str[] = ") ";
 static const char prt_str[] = "& ";
+static const char rlb_str[] = "{ ";
+static const char rlc_str[] = "-";
+static const char rle_str[] = "} ";
 
 void Logger::set_level(logger_levels new_level) {
     level = new_level;
@@ -116,6 +119,47 @@ void Logger::report(const char* tag, uint32_t val, bool hex) {
 void Logger::report(const char* tag, const char* msg) {
     strcpy(message, rep_str);
     str_fmt(tag, msg);
+}
+
+void Logger::report_long(const char* tag, const uint32_t msg[], uint16_t x, uint16_t y) {
+    uint8_t u32_items_line, k;
+    uint16_t i, j, el;
+    size_t slen;
+  
+    u32_items_line = floor((LOGGER_MSG_LEN - 4) / 5);
+    u32_items_line = 8;
+    strcpy(message, rlb_str);
+    slen = LOGGER_MSG_LEN-3;
+    strncat(message, tag, slen);
+    send(message);
+    for (i=0;i<y;i++) {
+        k = 0;
+        strcpy(message, rlc_str);
+        slen = LOGGER_MSG_LEN-2;
+        for (j=0;j<x;j++) {
+            if (k == u32_items_line) {
+                //strncat(message, "\n", slen);
+                send(message);
+                k = 0;
+                strcpy(message, rlc_str);
+                slen = LOGGER_MSG_LEN-2;
+                strncat(message, "  ", slen);
+                slen -= 2;
+            }
+            el = (i * x) + j;
+            sprintf(num_buf, " %04x", msg[el]);
+            strncat(message, num_buf, slen);
+            slen -= strlen(num_buf);
+            k++;
+        }
+        //strncat(message, "\n", slen);
+        send(message);
+    }
+    // print end
+    strcpy(message, rle_str);
+    slen = LOGGER_MSG_LEN-3;
+    strncat(message, tag, slen);
+    send(message);
 }
 
 void Logger::val_fmt(const char* tag, uint32_t val, bool hex) {
