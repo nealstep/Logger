@@ -127,7 +127,6 @@ void Logger::report_long(const char* tag, const uint32_t msg[], uint16_t x, uint
     size_t slen;
   
     u32_items_line = floor((LOGGER_MSG_LEN - 4) / 5);
-    u32_items_line = 8;
     strcpy(message, rlb_str);
     slen = LOGGER_MSG_LEN-3;
     strncat(message, tag, slen);
