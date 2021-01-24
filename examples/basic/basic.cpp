@@ -51,7 +51,7 @@ void loop(void) {
     logger_levels ll;
 
     ll = ll_ar[ll_ind++];
-    lg.set_level(ll);
+    lg.set_level(logger_debug);
     Serial.print("Log Level:");
     Serial.println(ll);
     Serial.println("Error");
@@ -68,9 +68,23 @@ void loop(void) {
     Serial.println("Value (info)");
     lg.value("one", 1);
     lg.value("str1", "this");
+    lg.value("8", (uint8_t)13);
+    lg.value("16", (uint16_t)134U);
+    lg.value("32", (uint32_t)64219UL);
+    lg.value("64", (uint64_t)4093867285ULL);
+    lg.valued("f", 3.1415);
+    lg.valuei("gi", -21);
+    lg.valued("gd", -21);
     Serial.println("Report");
     lg.report("two", 2);
     lg.report("str2", "that");
+    lg.report("8", (uint8_t)13);
+    lg.report("16", (uint16_t)134U);
+    lg.report("32", (uint32_t)64219UL);
+    lg.report("64", (uint64_t)4093867285ULL);
+    lg.reportd("f", 3.1415);
+    lg.reporti("gi", -21);
+    lg.reportd("gd", -21);
     if (ll_ind  == LL_LEN) {
         ll_ind = 0;
     }
@@ -78,6 +92,9 @@ void loop(void) {
     lg.report_long("Example", arr, 12, 16);
 
     lg.info("Looping");
+    while (true) {
+        delay(50);
+    }
     delay(LOOP_WAIT);
 }
 
