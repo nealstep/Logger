@@ -51,7 +51,7 @@ void loop(void) {
     logger_levels ll;
 
     ll = ll_ar[ll_ind++];
-    lg.set_level(logger_debug);
+    lg.set_level(ll);
     Serial.print("Log Level:");
     Serial.println(ll);
     Serial.println("Error");
@@ -92,9 +92,7 @@ void loop(void) {
     lg.report_long("Example", arr, 12, 16);
 
     lg.info("Looping");
-    while (true) {
-        delay(50);
-    }
+
     delay(LOOP_WAIT);
 }
 
