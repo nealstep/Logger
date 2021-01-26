@@ -194,11 +194,11 @@ void Logger::val_fmt(const char* tag, uint64_t val, bool hex) {
         if (val < (1 << 8)) {
             sprintf(num_buf, "%02llx", val);
         } else if (val < (1 << 16)) {
-            sprintf(num_buf, "%02llx", val);
-        } else if (val < ((uint64_t)1 << 32)) {
             sprintf(num_buf, "%04llx", val);
-        } else {
+        } else if (val < ((uint64_t)1 << 32)) {
             sprintf(num_buf, "%08llx", val);
+        } else {
+            sprintf(num_buf, "%016llx", val);
         }
     } else {
         sprintf(num_buf, "%llu", val);
